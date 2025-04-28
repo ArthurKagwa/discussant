@@ -151,3 +151,6 @@ CELERY_TASK_SERIALIZER = 'json'
 INSTALLED_APPS += ['django_celery_results']
 
 CELERY_RESULT_BACKEND = 'django-db'
+
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+TOGETHER_API_KEY = os.getenv('TOGETHER_API_KEY')

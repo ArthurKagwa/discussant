@@ -1,20 +1,35 @@
+import os
+
 import africastalking
+import requests
+from together import Together
+from django.conf import settings
 
 from djangoProject import settings
 
 
+
 def process_message_with_ai(message_text):
-    # This is where you would implement your AI processing logic
-    # For example, you might call an external AI API or use a local model
+    """
+    Process an incoming SMS message for Ugandan primary students using Together.ai (Llama 3.1 8B).
+    """
+    client = Together(api_key=settings.TOGETHER_API_KEY)
 
-    # Simple example:
-    if "hello" in message_text.lower():
-        return "Hello! How can I assist you today?"
-    elif "help" in message_text.lower():
-        return "I can help you with various tasks. Just tell me what you need!"
-    else:
-        return "Thank you for your message. I'll process it and get back to you soon."
+    system_instruction = (
+        "You are an educational assistant helping primary school students in Uganda. "
+        "Answer questions clearly, politely, and briefly. "
+        "Keep all answers under 100 characters. Use simple English."
+    )
 
+    response = client.chat.completions.create(
+        model="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+        messages=[
+            {"role": "system", "content": system_instruction},
+            {"role": "user", "content": message_text}
+        ]
+    )
+
+    return response.choices[0].message.content.strip()
 
 def send_sms_response(recipient, message):
     # Implementation for sending SMS response using Africa's Talking API
