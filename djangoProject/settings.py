@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+
 import os
 # Load environment variables from .env file
 load_dotenv()
@@ -29,7 +30,9 @@ SECRET_KEY = 'django-insecure-5$9-5&fgu4e+6p1w!n7paqcl1i3em*r5xiza9ze(2dt(ban$2l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0fcb-102-85-87-39.ngrok-free.app','127.0.0.1']
+# ALLOWED_HOSTS = ['0fcb-102-85-87-39.ngrok-free.app','127.0.0.1']
+ALLOWED_HOSTS = ['*']  # Allow all hosts for development purposes
+# CORS settings
 
 
 # Application definition
@@ -42,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sms_handler',
+    'django_celery_results',
+
 ]
 
 MIDDLEWARE = [
@@ -147,9 +152,7 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Assuming Redis is installed lo
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
-# To store task results in database (optional but helpful)
-INSTALLED_APPS += ['django_celery_results']
-
+# Celery result backend
 CELERY_RESULT_BACKEND = 'django-db'
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
