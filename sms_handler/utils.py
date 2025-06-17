@@ -7,7 +7,7 @@ from django.db.models import Q
 from together import Together
 from django.conf import settings
 
-from djangoProject import settings
+from djangoproject import settings
 from .models import SMSMessage
 
 
@@ -19,7 +19,7 @@ def process_message_with_ai(message_text, sender):
     system_instruction = (
         """You are a knowledgeable educational assistant helping primary school students in Uganda. 
 You tutor science, social studies, mathematics, and English. 
-Give brief but conversational—responses should be helpful and no longer than 300 characters.
+Give brief but conversational—responses. They should be helpful and no longer than 300 characters.
 Always base your answers on accurate, scientific facts.
 If you don't know the answer, say: "I don't know."  
 If the question is unrelated to school subjects, say: "I can't help with that." 
@@ -34,13 +34,13 @@ Avoid unnecessary explanations or opinions. Keep responses focused, helpful, and
 
 
     response = client.chat.completions.create(
-        model="deepseek-ai/DeepSeek-V3",
+        model="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
         messages=[
             {"role": "system", "content": system_instruction},
             *sms_history,  # Add past messages
             {"role": "user", "content": message_text}  # Current message
         ],
-        temperature=0.5,
+        temperature=.3, #highest temperature is 2
         max_tokens=150,
         top_p=0.9,
         frequency_penalty=0.2,
@@ -75,7 +75,7 @@ def send_sms_response(recipient, message):
     except Exception as e:
         print(f'Arthur, we have a problem: {e}')
 
-def get_sms_history(sender, limit=6):
+def get_sms_history(sender, limit=10):
     """
     Retrieve the last `limit` exchanges between a student and the AI,
     in proper chronological order and chat-API format.

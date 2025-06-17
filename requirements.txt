@@ -1,0 +1,25 @@
+
+Django>=4.2,<5.0
+
+celery>=5.2,<6.0
+
+africastalking
+
+# OpenAI Python client
+openai
+
+requests
+
+python-dotenv
+
+africastalking 
+celery 
+redis 
+ 
+djangorestframework 
+django_celery_results 
+dotenv  
+together 
+mysqlclient
+gunicorn
+

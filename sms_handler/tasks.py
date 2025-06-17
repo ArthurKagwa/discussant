@@ -8,3 +8,4 @@ def handle_incoming_sms(sender, message_text):
 
     # 2. Send back a response SMS
     send_sms_response(sender, response_text)
+
