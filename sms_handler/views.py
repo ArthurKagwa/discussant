@@ -1,10 +1,6 @@
 # views.py
-import africastalking
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
-from django.conf import settings
-import requests
 from .models import SMSMessage  # We'll create this model next
 from .tasks import handle_incoming_sms
 

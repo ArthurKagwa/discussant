@@ -34,7 +34,7 @@ Avoid unnecessary explanations or opinions. Keep responses focused, helpful, and
 
 
     response = client.chat.completions.create(
-        model="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+        model="Qwen/Qwen2.5-VL-72B-Instruct",
         messages=[
             {"role": "system", "content": system_instruction},
             *sms_history,  # Add past messages
