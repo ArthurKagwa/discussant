@@ -13,8 +13,7 @@
    ```env
     SECRET_KEY=your_secret_key
     DEBUG=True
-    celery -A djangoproject worker --loglevel=info
-    python manage.py runserver 
+git  python manage.py runserver 
     python manage.py migrate     
-    ngrok http 8000
+ngrok http 8000
    ```
